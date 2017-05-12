@@ -1,76 +1,156 @@
-alert("Try to guess what letter I'm thinking of.\n\nPress any key to start guessing!");
+var words = ["puck", "goalie", "stick", "goal", "mask", "rink", "net", "zambonie"];
 
-// create array with all letters
-var choices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-
-var wins = 0;
-var losses = 10;
-var guess = [];
-
-
-// generate answer
-function pick () {
-	var letter = choices[Math.floor(Math.random() * choices.length)];
-	var answer = letter;
-	return answer
-}
-
-var answer = pick();
+var answer = "";
+var letters;
+var wins = 0
+var displayDashes = [];
+var wrongGuesses = [];
+var rightGuesses = [];
+var guesses = 
 
 
-// runs everytime a key is pressed
-document.onkeyup = function (event) {
-
-	// record buttons pressed
-	var userGuess = event.key;
-	console.log(userGuess);
-
-	// record key press in HTML
-	guess.push(userGuess);
-	document.getElementById("yourGuesses").innerHTML = guess;
+function start () {
 
 
-		// if guess is correct
-		if (userGuess == answer) {
 
-				alert("Corectamundo!");
-				wins++;
-				document.getElementById("Wins").innerHTML = wins;
-				guess.length = 0;
-				document.getElementById("yourGuesses").innerHTML = guess;
-				losses = 10;
-				document.getElementById("guessesLeft").innerHTML = losses;
-				answer = pick();
-				return answer;
+	// picks one of the words out and runs function
+	var random = function createAnswer() {
+		answer = String(words[Math.floor(Math.random() * words.length)]);
+		console.log(answer)
 
+	};
+
+	random();
+
+
+
+	//convert answer to "_"s
+	function showDashes () {
+		for (var i = 0; i < answer.length; i++) {
+			var display = displayDashes.push("_");
 		}
 
+	}
+	showDashes();
 
 
-		// if guess not correct
-		else {
 
-			losses--;
-			document.getElementById("guessesLeft").innerHTML = losses;
 
-			if (losses == 0) {
-				alert("Oh no! You ran out of guesses.\n\nTry again");
-				losses = 10;
-				document.getElementById("guessesLeft").innerHTML = losses;
-				guess.length = 0;
-				document.getElementById("yourGuesses").innerHTML = guess;
-				answer = pick();
-				return answer;
+	var placeHolder = (String(displayDashes));
 
+	console.log(placeHolder);
+
+	// document.getElementById("correctAnswer").textContent = display;
+
+
+
+
+
+
+
+
+
+
+
+
+	// for (var j = 0; j < placeHolder.length; j++) {
+	// 	var t = document.createTextNode("_");
+
+	// 	document.getElementById("correctAnswer").innerHTML = newDiv.appendChild(t);
+	// }
+
+
+//============ Console keeps showing "Uncaught TypeError: Cannot set property 'textContent' of null" ====
+
+	// document.getElementById("correctAnswer").textContent = placeHolder;
+
+//=======================================================================================
+
+
+
+
+
+	
+
+
+	// record which key was pressed
+	function press() {
+		// When the user presses a key, it will run the following function...
+		document.onkeyup = function (event) {
+
+			// Determine which key was pressed
+			var userGuess = event.key;
+			console.log(userGuess);
+
+			var test = answer.indexOf(userGuess);
+			console.log(test)
+
+
+
+			if (test >= 0) {
+				console.log("YEAH!");
+				rightGuesses.push(userGuess);
+				console.log(displayAnswer.indexOf[userGuess]);
+
+				document.getElementById("correctAnswer").innerHTML = rightGuesses.indexOf[answer];
+				letters --
+
+				var newDiv = document.createElement("div");
+
+				var t = document.createTextNode("_");
+
+				newDiv.appendChild(t);
+
+
+
+
+					if (letters == 0) {
+						wins++
+						document.getElementById("Wins").innerHTML = wins;
+						start();
+						correctAnswer.innerHTML = "";
+					}
+
+
+				for (var i = 0; i < answer.length; i++) {
+					rightLetter = answer.charAt[i];
+					if (test == rightLetter) {
+
+
+
+						console.log(dispayDashes.repace(rightLetter.charAt[i]));
+
+
+						rightGuesses.push(rightLetter);
+						document.getElementById("correctAnswer").innerHTML = rightGuesses;
+
+					}
+				}
+				
 			}
 
+//  ================= Incorrect Guess ======================
+
+			else {
+				console.log("Try again");
+				wrongGuesses.push(userGuess);
+				document.getElementById("yourGuesses").innerHTML = wrongGuesses;
+			}
+
+
+
+
+
 		}
 
+	}
 
-} // closing document.onkeyup
-
-
-
+	press();
 
 
+}
+
+
+
+start();
 
